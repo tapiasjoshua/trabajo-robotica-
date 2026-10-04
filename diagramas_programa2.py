@@ -11,7 +11,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "evidencias")
+OUT = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(OUT, exist_ok=True)
 plt.rcParams.update({"font.family": "serif", "font.size": 9})
 

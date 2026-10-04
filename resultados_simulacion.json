@@ -1,0 +1,59 @@
+{
+  "segmentos_de_movimiento": 30,
+  "muestras_ik": 1228,
+  "duracion_movimiento_s": 24.3,
+  "error_posicion_ik_max_mm": 2.45e-05,
+  "error_orientacion_ik_max_rad": 2.15e-12,
+  "salto_articular_max_entre_muestras_deg": 0.692,
+  "manipulabilidad_min_trayectoria": 0.03274,
+  "manipulabilidad_max_trayectoria": 0.0773,
+  "pose_segura_tcp_m": [
+    -0.4919,
+    -0.1333,
+    0.4879
+  ],
+  "por_letra": {
+    "J": {
+      "longitud_trazo_mm": 198.5,
+      "tiempo_movimiento_s": 6.63
+    },
+    "T": {
+      "longitud_trazo_mm": 160.0,
+      "tiempo_movimiento_s": 6.14
+    },
+    "S": {
+      "longitud_trazo_mm": 226.0,
+      "tiempo_movimiento_s": 5.29
+    },
+    "M": {
+      "longitud_trazo_mm": 325.3,
+      "tiempo_movimiento_s": 6.24
+    }
+  },
+  "rango_articular_deg": {
+    "q1 Base": [
+      36.4,
+      83.1
+    ],
+    "q2 Hombro": [
+      -101.3,
+      -75.0
+    ],
+    "q3 Codo": [
+      111.1,
+      142.7
+    ],
+    "q4 Muneca 1": [
+      -137.2,
+      -118.1
+    ],
+    "q5 Muneca 2": [
+      -90.0,
+      -90.0
+    ],
+    "q6 Muneca 3": [
+      -53.6,
+      -6.9
+    ]
+  }
+}

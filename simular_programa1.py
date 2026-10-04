@@ -1,12 +1,12 @@
 """
 Simulacion cinematica offline del Programa 1 (iniciales J, T, S, M) en un UR5e.
 
-Reproduce la misma geometria del archivo programas/programa1_iniciales.script:
+Reproduce la misma geometria del archivo programa1_iniciales.script:
   - movel -> segmento recto en espacio cartesiano con perfil trapezoidal
   - movec -> arco circular definido por (inicio, via, fin)
 Para cada muestra calcula la cinematica inversa numerica con los parametros DH
 oficiales del UR5e, verifica alcanzabilidad y cercania a singularidades y genera
-las figuras de evidencia en ../evidencias/.
+las figuras de evidencia en esta misma carpeta.
 
 Nota: es una verificacion geometrica y cinematica; no reemplaza la ejecucion en URSim.
 Uso:  python3 simular_programa1.py      (requiere numpy, scipy, matplotlib)
@@ -21,7 +21,7 @@ import numpy as np
 from scipy.optimize import least_squares
 from scipy.spatial.transform import Rotation as R
 
-OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "evidencias")
+OUT = os.path.dirname(os.path.abspath(__file__))
 os.makedirs(OUT, exist_ok=True)
 
 # ------------------------- Parametros DH del UR5e -------------------------
