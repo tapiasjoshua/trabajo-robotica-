@@ -1,0 +1,19 @@
+PROGRAMA 2 - Arbol de PolyScope (guardado como programa2.urp)
+===============================================================================
+Instalacion (Installation > URCaps > External Control):
+  Host IP     : 192.168.56.1
+  Custom port : 50002
+  Host name   : 192.168.56.1
+
+Robot Program
+ ├─ Set DO[0]=On                         (salida digital 0 en ALTO)
+ ├─ Popup (Message):
+ │    "el control del robot sera compartido con un controlador externo(ros2)
+ │     5 segundos despues de confirmar el mensaje."
+ ├─ Wait: 5.0                            (espera de 5 segundos)
+ └─ Control by 192.168.56.1              (nodo External Control)
+
+Equivalente URScript de los tres primeros nodos (referencia):
+  set_standard_digital_out(0, True)
+  popup("el control del robot sera compartido con un controlador externo(ros2) 5 segundos despues de confirmar el mensaje.", title="Message", blocking=True)
+  sleep(5.0)

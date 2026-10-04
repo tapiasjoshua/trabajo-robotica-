@@ -1,0 +1,99 @@
+# =====================================================================
+#  PROGRAMA 1 - Trayectorias de las iniciales del grupo
+#  Integrantes:
+#    Joshua Antonio Tapias Trivino   -> J (nombre)  T (apellido)
+#    Samuel Jeronimo Moreno Mora     -> S (nombre)  M (apellido)
+#  Uso: PolyScope -> Program -> Advanced -> Script -> File -> este archivo
+#  Robot de referencia: UR5e en URSim (para UR3e reducir ORIGEN/tamanos)
+#  Las letras se dibujan sobre un plano horizontal con la herramienta
+#  apuntando hacia abajo, como si el robot escribiera sobre una mesa.
+# =====================================================================
+
+# ---------------------- Parametros ------------------------------------
+global ORIGEN = p[-0.25, -0.45, 0.20, 0.0, 3.1416, 0.0]  # esquina inf. izq. de la 1a letra
+global ALTO   = 0.10    # alto de cada letra [m]
+global ANCHO  = 0.06    # ancho de cada letra [m]
+global SEP    = 0.09    # distancia entre el inicio de una letra y la siguiente [m]
+global Z_SEG  = 0.05    # altura para "levantar el lapiz" [m]
+global V_RAP  = 0.25    # velocidad de aproximacion [m/s]
+global V_TRA  = 0.10    # velocidad de trazo [m/s]
+global ACC    = 0.50    # aceleracion [m/s^2]
+
+# ---------------------- Funciones auxiliares --------------------------
+# Punto de la letra: ox = desplazamiento de la letra en X,
+# (u, v) en [0,1] dentro de la caja de la letra, dz = altura extra
+def pto(ox, u, v, dz):
+  return pose_add(ORIGEN, p[ox + u*ANCHO, v*ALTO, dz, 0, 0, 0])
+end
+
+def bajar(ox, u, v):
+  movel(pto(ox, u, v, Z_SEG), a=ACC, v=V_RAP)
+  movel(pto(ox, u, v, 0), a=ACC, v=V_TRA)
+end
+
+def trazar(ox, u, v):
+  movel(pto(ox, u, v, 0), a=ACC, v=V_TRA)
+end
+
+def arco(ox, u_via, v_via, u_fin, v_fin):
+  movec(pto(ox, u_via, v_via, 0), pto(ox, u_fin, v_fin, 0), a=ACC, v=V_TRA)
+end
+
+def subir(ox, u, v):
+  movel(pto(ox, u, v, Z_SEG), a=ACC, v=V_RAP)
+end
+
+# ---------------------- Letras ----------------------------------------
+def letra_J(ox):
+  bajar(ox, 0, 1)            # barra superior
+  trazar(ox, 1, 1)
+  subir(ox, 1, 1)
+  bajar(ox, 0.6, 1)          # tallo vertical
+  trazar(ox, 0.6, 0.18)
+  arco(ox, 0.3, 0, 0, 0.18)  # gancho inferior
+  subir(ox, 0, 0.18)
+end
+
+def letra_T(ox):
+  bajar(ox, 0, 1)            # barra superior
+  trazar(ox, 1, 1)
+  subir(ox, 1, 1)
+  bajar(ox, 0.5, 1)          # tallo vertical
+  trazar(ox, 0.5, 0)
+  subir(ox, 0.5, 0)
+end
+
+def letra_S(ox):
+  bajar(ox, 1, 0.9)
+  arco(ox, 0.5, 1, 0, 0.75)  # curva superior
+  trazar(ox, 1, 0.25)        # diagonal central
+  arco(ox, 0.5, 0, 0, 0.1)   # curva inferior
+  subir(ox, 0, 0.1)
+end
+
+def letra_M(ox):
+  bajar(ox, 0, 0)
+  trazar(ox, 0, 1)
+  trazar(ox, 0.5, 0.45)
+  trazar(ox, 1, 1)
+  trazar(ox, 1, 0)
+  subir(ox, 1, 0)
+end
+
+# ---------------------- Secuencia principal ---------------------------
+movej([0, -1.5708, 1.5708, -1.5708, -1.5708, 0], a=1.0, v=0.8)  # pose segura
+movej(pto(0, 0, 0, 0.10), a=1.0, v=0.8)                           # aproximacion
+
+popup("A continuacion se simulara la letra J (Joshua)", title="Programa 1 - Iniciales", blocking=True)
+letra_J(0)
+
+popup("A continuacion se simulara la letra T (Tapias)", title="Programa 1 - Iniciales", blocking=True)
+letra_T(SEP)
+
+popup("A continuacion se simulara la letra S (Samuel)", title="Programa 1 - Iniciales", blocking=True)
+letra_S(2*SEP)
+
+popup("A continuacion se simulara la letra M (Moreno)", title="Programa 1 - Iniciales", blocking=True)
+letra_M(3*SEP)
+
+movej([0, -1.5708, 1.5708, -1.5708, -1.5708, 0], a=1.0, v=0.8)  # regreso a pose segura
